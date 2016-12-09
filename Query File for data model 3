@@ -1,0 +1,58 @@
+# Query File for data model 3
+
+
+
+Q2:
+g.V().hasLabel('User').as('ScreenName','Category').outE('posted').inV().has('month','1').as('Tweet_Text','Retweet_Count').outE('mentioned').inV().has('hashtagname','gop').as('Tag').select('ScreenName','Category','Tweet_Text','Retweet_Count','Tag').by('screen_name').by('sub_category').by('text').by('retweet_count').by('hashtagname').order().by(select('Retweet_Count'),decr).limit(10)
+
+Q1:
+g.V().hasLabel('User').as('UserName','Category').outE('posted').inV().as('Retweeted','Month','RetweetCount').dedup().select('UserName','Category','Retweeted','Month','RetweetCount').by('screen_name').by('sub_category').by('retweeted').by('month').by('retweet_count').order().by(select('RetweetCount'),decr).limit(100)
+
+Q7:
+g.V().hasLabel('User').has('location','New Jersey').as('u1','u2').outE('posted').inV().has('year','2016').has('month','1').as('t').outE('mentioned').inV().has('hashtagname','gop').as('Tag').select('u1','u2','t').by('screen_name').by('location').by('retweet_count').limit(10)
+
+Q11:
+g.V().hasLabel('User').has('location','Ohio').has('sub_category',within('democrat','republican')).as('u','uc').outE('posted').inV().has('year','2016').has('month','1').as('t').outE('mentioned').inV().as('h').select('u','uc','t','h').by('screen_name').by('sub_category').by('text').by('hashtagname')
+
+Q13:
+g.V().hasLabel('User').has('category','reporter').as('a','b','c').select('a','b','c').by('screen_name').by('category').by('followers').order().by(select('c'),decr).limit(100)
+
+Q 9:
+g.V().hasLabel('Tweet').has('year','2016').has('month','1').as('t').outE('mentioned').inV().has('hashtagname','gop').select('t').limit(100)
+*****
+
+Q 14:
+g.V().hasLabel('User').as('u1','u2','u3','u4').outE('posted').inV().has('year','2016').has('month','1').has('date',between('1','31')).as('t').outE('mentioned').inV().has('hashtagname','gop').select('u1','u2','u3','u4','t').by('screen_name').by('category').by('sub_category').by('location').by('date').order().by(select('t'), incr).limit(100)
+
+Q16:
+g.V().hasLabel('User').as('u1','u2').outE('posted').inV().has('year','2016').has('month','1').as('t1','t2').outE('url').inV().as('ur').select('u1','u2','t1','t2','ur').by('screen_name').by('category').by('text').by('retweet_count').by('tweeturl').order().by(select('t2'),decr).limit(100)
+
+q 18:
+g.V().hasLabel('User').has('category','senate_group').as('u1','u2').outE('posted').inV().has('year','2016').has('month','1').as('t').outE('mentioned').inV().as('m').select('u1','u2','t','m').by('screen_name').by('location').by('text').by('screen_name').limit(100)
+
+Q 20:
+g.V().has('location','New Jersey').outE('posted').inV().has('year','2016').has('month','1').outE('mentioned').inV().as('h').select('h').limit(1000)
+
+Q21:
+g.V().hasLabel('User').has('category','senate_group').outE('posted').inV().has('year','2016').has('month','1').as('tweets').outE('mentioned').inV().as('mentioned_User').select('tweets','mentioned_User').by('retweet_count').by('hashtagname').order().by(select('tweets'),decr).limit(1000)
+
+Q23:
+g.V().hasLabel('User').has('category',within('senate_group','presidential_candidate')).outE('posted').inV().has('year','2016').has('month',within('1','2')).has('date',between('1','9')).as('t').outE('mentioned').inV().as('h').select('t','h').by('retweet_count').by('hashtagname').order().by(select('t'),decr).limit(100)
+
+Q24:
+g.V().hasLabel('User').has('category',within('senate_group','presidential_candidate')).outE('posted').inV().hasLabel('Tweet').has('year','2016').has('month','1').as('tweets').outE('mentioned').inV().as('mentions').select('tweets','mentions').by('retweet_count').by('hashtagname').limit(100)
+
+Q4:
+g.V().hasLabel('User').has('category',within('Senator','reporter','House_representative')).as('loc').outE('posted').inV().has('year','2016').as('Month','Date').outE('mentioned').inV().has('hashtagname','gop').dedup('loc','Month','Date').select('loc','Month','Date').by('location').by('month').by('date').order().by(select('Date'),decr)
+
+Q25: 
+g.V().hasLabel('User').has('category',within('Senator','reporter','House_representative')).as('up').outE('posted').inV().has('year','2016').has('month',within('1','2')).has('date',between('1','31')).as('t').outE('mentioned').inV().has('sub_category','GOP').as('um').select('up','t','um').by('screen_name').by('text').by('screen_name')
+
+Q10:
+
+g.V().hasLabel('User').has('location',within('Ohio','Alaska','Alabama','FL')).as('u').outE('posted').inV().has('year','2016').has('month','1').outE('mentioned').inV().hasLabel('Mentioned_User').dedup().as('h').select('u','h').by('location').by('hashtagname')
+
+Q15:
+g.V().hasLabel('User').has('category','gop').as('u1','u2').outE('posted').inV().hasLabel('Tweet').has('year','2016').has('month','1').has('date',within('1','31')).as('t').outE('url').inV().hasLabel('Url_Used').as('ur').select('u1','u2','t','ur').by('screen_name').by('location').by('date').group().by('url').order().by(select('t'),decr)
+
+
