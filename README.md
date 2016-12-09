@@ -1,4 +1,4 @@
-# databaseTitanModel
+# TitanModel Creation In Java
 This code will create 3 Titan Data Model for you, 1 data model is basic which use no indexing, 2 data model 
 use indexing at screen_name and sub_category [CompositeIndex] and 3 data model is with reduce hops.
 
